@@ -1,3 +1,3 @@
-# Welcome to your Lovable project
+# ResiliChain AI
 
-TODO: Document your project here
+Supply-chain resilience dashboard built with Vite, React, TypeScript, and shadcn/ui.
