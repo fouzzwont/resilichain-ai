@@ -1,22 +1,27 @@
 import { cn } from "@/lib/utils";
-import { getRiskLevel, getRiskBgClass, type RiskLevel } from "@/data/mockData";
+import { getRiskBgClass, getRiskLevel, type Severity } from "@/data/parcels";
 
 interface RiskBadgeProps {
   score?: number;
-  level?: RiskLevel;
+  level?: Severity;
   showScore?: boolean;
 }
 
+const LABELS: Record<Severity, string> = {
+  low: "Low",
+  medium: "Medium",
+  high: "High",
+  critical: "Critical",
+};
+
 export function RiskBadge({ score, level, showScore = false }: RiskBadgeProps) {
-  const riskLevel = level || (score !== undefined ? getRiskLevel(score) : 'low');
+  const riskLevel = level ?? (score !== undefined ? getRiskLevel(score) : "low");
   const riskClass = score !== undefined ? getRiskBgClass(score) : `risk-${riskLevel}`;
-  const labels: Record<RiskLevel, string> = {
-    low: 'Low', medium: 'Medium', high: 'High', critical: 'Critical'
-  };
 
   return (
     <span className={cn("status-badge", riskClass)}>
-      {labels[riskLevel]}{showScore && score !== undefined ? ` (${score})` : ''}
+      {LABELS[riskLevel]}
+      {showScore && score !== undefined ? ` (${score})` : ""}
     </span>
   );
 }
